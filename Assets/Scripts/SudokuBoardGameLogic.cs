@@ -1,16 +1,22 @@
 ﻿using System;
 using UnityEngine;
 using Newtonsoft.Json;
+using System.IO;
+
 public class SudokuBoardGameLogic
 {
     private SudokuBoard m_Board;
+    private string jsonPath = Application.dataPath + "/Boards/easy_board.json";
     public SudokuBoardGameLogic()
     {
     }
 
     public void StartGame()
     {
-      m_Board = LoadSudokuBoard();
+        m_Board = LoadSudokuBoard();
+        m_Board.PrintBoard();
+        SolveBoard(m_Board);
+        m_Board.PrintBoard();
     }
 
     public SudokuBoard GetBoard()
@@ -20,7 +26,12 @@ public class SudokuBoardGameLogic
 
     public SudokuBoard LoadSudokuBoard()
     {
-        throw new NotImplementedException();
+        SudokuBoard board = new SudokuBoard();
+
+        if (File.Exists(jsonPath))
+            board = JsonConvert.DeserializeObject<SudokuBoard>(File.ReadAllText(jsonPath));
+
+        return board;
     }
 
     private static bool SolveBoard(SudokuBoard board)

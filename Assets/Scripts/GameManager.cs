@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         m_GameLogic = new SudokuBoardGameLogic();
-        m_GameLogic.LoadSudokuBoard();
+        m_GameLogic.StartGame();
     }
 
     // Update is called once per frame
