@@ -37,16 +37,18 @@ public class CellController : MonoBehaviour
         if (string.IsNullOrEmpty(inputField.text))
             value = 0;
         else
+        {
             value = int.Parse(inputField.text);
-        if (LocalUtilities.getGameManager().validateCell(row, column, value))
-        {
-            LocalUtilities.getGameManager().updateCell(row, column, value);
-            inputField.GetComponent<Image>().color = Color.white;
-        }
-        else
-        {
-            inputField.GetComponent<Image>().color = Color.red;
-            //Notify User
+            if (LocalUtilities.getGameManager().validateCell(row, column, value))
+            {
+                LocalUtilities.getGameManager().updateCell(row, column, value);
+                inputField.GetComponent<Image>().color = Color.white;
+            }
+            else
+            {
+                inputField.GetComponent<Image>().color = Color.red;
+                //Notify User
+            }
         }
     }
 
