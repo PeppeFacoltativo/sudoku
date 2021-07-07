@@ -15,14 +15,14 @@ public class GameManager : MonoBehaviour
         view.setUpBoard(m_GameLogic.GetBoard());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void updateCell(int row, int column, int tileValue)
     {
         m_GameLogic.GetBoard().SetSudokuValue(row, column, tileValue);
+    }
+
+    public bool validateCell(int row, int column, int tileValue)
+    {
+        return m_GameLogic.GetBoard().TestSudokuValueValidity(row, column, tileValue);
     }
 }
