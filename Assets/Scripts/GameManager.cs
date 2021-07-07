@@ -8,10 +8,19 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     ViewManager view;
 
+    private bool gameStarted = false;
+    private float timeElapsed;
+
     void Start()
+    {
+        startGame();
+    }
+
+    private void startGame()
     {
         m_GameLogic = new SudokuBoardGameLogic();
         m_GameLogic.StartGame();
+        gameStarted = true;
         view.setUpBoard(m_GameLogic.GetBoard());
     }
 
@@ -24,5 +33,17 @@ public class GameManager : MonoBehaviour
     public bool validateCell(int row, int column, int tileValue)
     {
         return m_GameLogic.GetBoard().TestSudokuValueValidity(row, column, tileValue);
+    }
+
+    private void Update()
+    {
+        if (gameStarted)
+            refreshTimer();
+    }
+
+    private void refreshTimer()
+    {
+        timeElapsed += Time.deltaTime;
+        view.DisplayTime(timeElapsed);
     }
 }

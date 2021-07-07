@@ -41,7 +41,10 @@ public class CellController : MonoBehaviour
             return;
 
         if (string.IsNullOrEmpty(inputField.text))
+        {
             value = 0;
+            inputField.GetComponent<Image>().color = Color.white;
+        }
         else
         {
             value = int.Parse(inputField.text);
@@ -52,7 +55,7 @@ public class CellController : MonoBehaviour
             }
             else
             {
-                inputField.GetComponent<Image>().color = Color.red;
+                inputField.GetComponent<Image>().color = inputField.GetComponent<Image>().color = new Color(253f / 255f, 170f / 255f, 170f / 255f);
                 //Notify User
             }
         }
