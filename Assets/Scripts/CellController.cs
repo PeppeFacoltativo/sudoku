@@ -10,6 +10,8 @@ public class CellController : MonoBehaviour
     private int column;
     private int value;
 
+    private bool lockedValue;
+
     private InputField inputField;
 
     private void Awake() 
@@ -19,6 +21,7 @@ public class CellController : MonoBehaviour
         column = int.Parse(name.Substring(1, 1)); //The second letter in the name of the gameobjects indicates the column
         value = 0;
 
+        lockedValue = false;
         inputField = GetComponent<InputField>();
     }
 
@@ -34,6 +37,9 @@ public class CellController : MonoBehaviour
 
     public void updateCell()
     {
+        if (lockedValue)
+            return;
+
         if (string.IsNullOrEmpty(inputField.text))
             value = 0;
         else
@@ -58,5 +64,6 @@ public class CellController : MonoBehaviour
         inputField.text = tileValue.ToString();
         inputField.readOnly = true;
         inputField.GetComponent<Image>().color = new Color(220f / 255f, 220f / 255f, 220f / 255f);
+        lockedValue = true;
     }
 }
