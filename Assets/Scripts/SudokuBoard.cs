@@ -14,6 +14,19 @@ public class SudokuBoard
         m_Board = new SudokuCell[9, 9];
     }
 
+    //Added constructor to generate a cloned table
+    public SudokuBoard(SudokuBoard board)
+    {
+        m_Board = new SudokuCell[9, 9];
+        for (int i = 0; i < m_Board.GetLength(0); i++)
+        {
+            for (int j = 0; j < m_Board.GetLength(1); j++)
+            {
+                SetSudokuValue(i, j, board.GetSudokuTileValue(i,j));
+            }
+        }
+    }
+
     /// <summary>
     /// Set Value for a sudoku tile
     /// </summary>

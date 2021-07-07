@@ -2,11 +2,15 @@
 using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 
 public class SudokuBoardGameLogic
 {
     private SudokuBoard m_Board;
+    SudokuBoard solvedBoard; // Generate a solved board on startup to avoid lag
     private string jsonPath = Application.dataPath + "/Boards/easy_board.json";
+
     public SudokuBoardGameLogic()
     {
     }
@@ -14,7 +18,8 @@ public class SudokuBoardGameLogic
     public void StartGame()
     {
         m_Board = LoadSudokuBoard();
-        m_Board.PrintBoard();
+        solvedBoard = new SudokuBoard(m_Board);
+        SolveBoard(solvedBoard);
     }
 
     public SudokuBoard GetBoard()
@@ -44,7 +49,6 @@ public class SudokuBoardGameLogic
                     {
                         if (board.TestSudokuValueValidity(i,j,c))
                         {
-                 
                             board.SetSudokuValue(i, j, c);
                             board.PrintBoard();
                             if (SolveBoard(board))
@@ -58,5 +62,33 @@ public class SudokuBoardGameLogic
             }
         }
         return true;
+    }
+
+    /// <summary>
+    /// Return row, column and value of the hinted cell
+    /// </summary>
+    /// <returns>A list of 3 elements containing in order Row, Column and Value</returns>
+    public List<int> calculateHint()
+    {
+        List<int> result = getRandomEmptyCell();
+        result.Add(solvedBoard.GetSudokuTileValue(result[0], result[1]));
+        return result;
+    }
+
+    private List<int> getRandomEmptyCell()
+    {
+        List<int> coords = new List<int>();
+        if (m_Board.IsBoardFull())
+            throw new Exception("Board already Full");
+
+        do
+        {
+            coords.Add(UnityEngine.Random.Range(0, 9));
+            coords.Add(UnityEngine.Random.Range(0, 9));
+            if (m_Board.GetSudokuTileValue(coords[0], coords[1]) == 0)
+                return coords;
+            coords.Clear();
+        }
+        while (true);
     }
 }

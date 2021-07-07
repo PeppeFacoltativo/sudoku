@@ -8,10 +8,9 @@ public class ViewManager : MonoBehaviour
 {
     private const int NUM_OF_LINES = 9;
 
-    [SerializeField]
-    private GameObject boardContainer;
-    [SerializeField]
-    private Text timer;
+    [SerializeField] private GameObject boardContainer;
+    [SerializeField] private Text timer;
+    [SerializeField] private Animator quitTextAnimator;
 
     private CellController[,] viewCells;
 
@@ -57,11 +56,26 @@ public class ViewManager : MonoBehaviour
         }
     }
 
-    public void DisplayTime(float timeToDisplay)
+    public void displayTime(float timeToDisplay)
     {
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
         timer.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void quitButtonMouseEnter(Text text)
+    {
+        quitTextAnimator.SetBool("quitHover", true);
+    }
+
+    public void quitButtonMouseExit(Text text)
+    {
+        quitTextAnimator.SetBool("quitHover", false);
+    }
+
+    public void showHint(int row, int col, int value)
+    {
+        viewCells[row, col].setHintedCell(value);
     }
 }

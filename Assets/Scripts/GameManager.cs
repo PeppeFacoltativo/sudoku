@@ -44,6 +44,18 @@ public class GameManager : MonoBehaviour
     private void refreshTimer()
     {
         timeElapsed += Time.deltaTime;
-        view.DisplayTime(timeElapsed);
+        view.displayTime(timeElapsed);
+    }
+
+    public void showHint()
+    {
+        List<int> hint = m_GameLogic.calculateHint();
+        updateCell(hint[0], hint[1], hint[2]);
+        view.showHint(hint[0], hint[1], hint[2]);
+    }
+
+    public bool isGameOver()
+    {
+        return m_GameLogic.GetBoard().IsBoardFull();
     }
 }

@@ -48,10 +48,14 @@ public class CellController : MonoBehaviour
         else
         {
             value = int.Parse(inputField.text);
+
+            //The view updates the model only if the cell is valid
             if (LocalUtilities.getGameManager().validateCell(row, column, value))
             {
                 LocalUtilities.getGameManager().updateCell(row, column, value);
                 inputField.GetComponent<Image>().color = Color.white;
+
+                checkGameOver();
             }
             else
             {
@@ -61,12 +65,30 @@ public class CellController : MonoBehaviour
         }
     }
 
-    public void setFixedValue(int tileValue)
+    private void checkGameOver()
+    {
+        if (LocalUtilities.getGameManager().isGameOver())
+            Debug.Log("Game Over!"); // win notification
+    }
+
+    private void lockValue(int tileValue)
     {
         value = tileValue;
         inputField.text = tileValue.ToString();
         inputField.readOnly = true;
-        inputField.GetComponent<Image>().color = new Color(220f / 255f, 220f / 255f, 220f / 255f);
         lockedValue = true;
+    }
+
+    public void setFixedValue(int tileValue)
+    {
+        lockValue(tileValue);
+        inputField.GetComponent<Image>().color = new Color(220f / 255f, 220f / 255f, 220f / 255f);
+    }
+
+    public void setHintedCell(int tileValue)
+    {
+        lockValue(tileValue);
+        inputField.GetComponent<Image>().color = new Color(174f / 255f, 198f / 255f, 207f / 255f);
+        checkGameOver();
     }
 }
