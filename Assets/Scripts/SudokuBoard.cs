@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using Newtonsoft.Json;
+using System;
+
 public class SudokuBoard
 {
     [JsonProperty("board")]

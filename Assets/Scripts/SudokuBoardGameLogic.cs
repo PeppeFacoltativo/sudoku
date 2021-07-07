@@ -15,8 +15,6 @@ public class SudokuBoardGameLogic
     {
         m_Board = LoadSudokuBoard();
         m_Board.PrintBoard();
-        SolveBoard(m_Board);
-        m_Board.PrintBoard();
     }
 
     public SudokuBoard GetBoard()
