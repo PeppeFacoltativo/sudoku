@@ -10,15 +10,14 @@ public class SudokuBoardGameLogic
 {
     private SudokuBoard m_Board;
     SudokuBoard solvedBoard; // Generate a solved board on startup to avoid lag
-    private string jsonPath = Application.dataPath + "/Boards/easy_board.json";
 
     public SudokuBoardGameLogic()
     {
     }
 
-    public void StartGame()
+    public void StartGame(string jsonPath)
     {
-        m_Board = LoadSudokuBoard();
+        m_Board = LoadSudokuBoard(jsonPath);
         solvedBoard = new SudokuBoard(m_Board);
         Thread t = new Thread(() => SolveBoard(solvedBoard));
         t.Start();
@@ -29,7 +28,7 @@ public class SudokuBoardGameLogic
         return m_Board;
     }
 
-    public SudokuBoard LoadSudokuBoard()
+    public SudokuBoard LoadSudokuBoard(string jsonPath)
     {
         SudokuBoard board = new SudokuBoard();
 

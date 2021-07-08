@@ -5,18 +5,20 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     SudokuBoardGameLogic m_GameLogic;
-    [SerializeField]
-    ViewManager view;
+
+    [SerializeField] private ViewManager view;
+    [SerializeField] private List<string> jsonBoardNames; //I preferred to put a list here so it will be easier to choose among a wider range of boards
 
     private bool gameStarted = false;
     private float timeElapsed;
 
-    public void startGame()
+    public void startGame(int boardNo)
     {
-        m_GameLogic = new SudokuBoardGameLogic();
-        m_GameLogic.StartGame();
-        gameStarted = true;
+        string path =  Application.dataPath + "/Boards/" + jsonBoardNames[boardNo];
 
+        m_GameLogic = new SudokuBoardGameLogic();
+        m_GameLogic.StartGame(path);
+        gameStarted = true;
         view.initializeGame(m_GameLogic.GetBoard());
     }
 
@@ -62,7 +64,9 @@ public class GameManager : MonoBehaviour
             else
                 score = 1;
             view.gameOver(score);
-            PlayerPrefs.SetInt("HighScore", score);
+
+            if (score > PlayerPrefs.GetInt("HighScore"));
+                PlayerPrefs.SetInt("HighScore", score);
         }
     }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,16 +12,18 @@ public class ViewManager : MonoBehaviour
 
     [Header("Main Menu Canvas")]
     [SerializeField] private Canvas mainMenuCanvas;
-        [SerializeField] private Text highScore;
+    [SerializeField] private Text highScore;
 
     [Header("Board Canvas")]
     [SerializeField] private Canvas boardCanvas;
-        [SerializeField] private GameObject boardContainer;
-        [SerializeField] private Animator quitTextAnimator;
-        [SerializeField] private Text timer;
+    [SerializeField] private GameObject boardContainer;
+    [SerializeField] private Animator quitTextAnimator;
+    [SerializeField] private Text timer;
 
     [Header("Game Over Canvas")]
     [SerializeField] private Canvas gameOverCanvas;
+    [SerializeField] private Text score;
+    [SerializeField] private Text quote;
 
 
     private CellController[,] viewCells;
@@ -74,12 +77,15 @@ public class ViewManager : MonoBehaviour
     public void gameOver(int score)
     {
         //TODO: Game over animation
+        this.score.text = "Score: " + score.ToString();
+        quote.text = pickRandomQuote();
         switchToGameOverCanva();
     }
 
     public void quit()
     {
         //TODO: Game over animation
+        clearBoard();
         switchToMainMenuCanva();
     }
 
@@ -126,4 +132,17 @@ public class ViewManager : MonoBehaviour
     {
         viewCells[row, col].setHintedCell(value);
     }
+
+    private string pickRandomQuote()
+    {
+        string[] quotes = File.ReadAllLines(Application.dataPath + "/Files/Quotes.txt");
+        return quotes[UnityEngine.Random.Range(0, quotes.Length)];
+    }
+
+    private void clearBoard()
+    {
+        foreach (CellController c in viewCells)
+            c.resetCell();
+    }
+
 }

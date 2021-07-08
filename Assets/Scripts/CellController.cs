@@ -37,11 +37,13 @@ public class CellController : MonoBehaviour
         return column;
     }
 
-    private void resetCell()
+    public void resetCell()
     {
         value = 0;
+        lockedValue = false;
         inputField.text = "";
         inputField.GetComponent<Image>().color = Color.white;
+        inputField.readOnly = false;
     }
 
     public void updateCell()
