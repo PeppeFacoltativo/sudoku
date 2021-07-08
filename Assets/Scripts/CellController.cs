@@ -49,9 +49,14 @@ public class CellController : MonoBehaviour
         if (lockedValue)
             return;
 
-        if (string.IsNullOrEmpty(inputField.text))
+        valid = true;
+        string newVal = inputField.text;
+        if (string.IsNullOrEmpty(newVal))
+        {
             resetCell();
-        else
+            confirmUpdate();
+        }
+        else if (value != int.Parse(newVal))
         {
             value = int.Parse(inputField.text);
             //The view updates the model only if the cell is valid
@@ -59,7 +64,6 @@ public class CellController : MonoBehaviour
             {
                 inputField.GetComponent<Image>().color = inputField.GetComponent<Image>().color = new Color(253f / 255f, 170f / 255f, 170f / 255f);
                 valid = false;
-                //Notify User
             }
         }
     }
@@ -83,9 +87,9 @@ public class CellController : MonoBehaviour
     private void lockValue(int tileValue)
     {
         value = tileValue;
+        lockedValue = true;
         inputField.text = tileValue.ToString();
         inputField.readOnly = true;
-        lockedValue = true;
     }
 
     public void setFixedValue(int tileValue)
