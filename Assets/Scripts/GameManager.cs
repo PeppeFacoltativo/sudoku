@@ -11,17 +11,13 @@ public class GameManager : MonoBehaviour
     private bool gameStarted = false;
     private float timeElapsed;
 
-    void Start()
-    {
-        startGame();
-    }
-
-    private void startGame()
+    public void startGame()
     {
         m_GameLogic = new SudokuBoardGameLogic();
         m_GameLogic.StartGame();
         gameStarted = true;
-        view.setUpBoard(m_GameLogic.GetBoard());
+
+        view.initializeGame(m_GameLogic.GetBoard());
     }
 
 
@@ -54,8 +50,26 @@ public class GameManager : MonoBehaviour
         view.showHint(hint[0], hint[1], hint[2]);
     }
 
-    public bool isGameOver()
+    public void checkGameOver()
     {
-        return m_GameLogic.GetBoard().IsBoardFull();
+        if(m_GameLogic.GetBoard().IsBoardFull())
+        {
+            gameStarted = false;
+
+            int score;
+            if (timeElapsed < 100000) //min score is 1
+                score = 100000 - Mathf.RoundToInt(timeElapsed);
+            else
+                score = 1;
+            view.gameOver(score);
+            PlayerPrefs.SetInt("HighScore", score);
+        }
+    }
+
+    public void quit()
+    {
+        gameStarted = false;
+        timeElapsed = 0;
+        view.quit();
     }
 }

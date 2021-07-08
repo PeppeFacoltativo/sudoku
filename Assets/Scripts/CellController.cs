@@ -75,15 +75,9 @@ public class CellController : MonoBehaviour
         {
             LocalUtilities.getGameManager().updateCell(row, column, value);
             inputField.GetComponent<Image>().color = Color.white;
-            checkGameOver();
+            LocalUtilities.getGameManager().checkGameOver();
             valid = true;
         }
-    }
-
-    private void checkGameOver()
-    {
-        if (LocalUtilities.getGameManager().isGameOver())
-            Debug.Log("Game Over!"); // win notification
     }
 
     private void lockValue(int tileValue)
@@ -104,6 +98,6 @@ public class CellController : MonoBehaviour
     {
         lockValue(tileValue);
         inputField.GetComponent<Image>().color = new Color(174f / 255f, 198f / 255f, 207f / 255f);
-        checkGameOver();
+        LocalUtilities.getGameManager().checkGameOver();
     }
 }

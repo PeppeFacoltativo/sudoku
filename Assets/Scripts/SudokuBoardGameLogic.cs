@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 
 public class SudokuBoardGameLogic
 {
@@ -19,7 +20,8 @@ public class SudokuBoardGameLogic
     {
         m_Board = LoadSudokuBoard();
         solvedBoard = new SudokuBoard(m_Board);
-        SolveBoard(solvedBoard);
+        Thread t = new Thread(() => SolveBoard(solvedBoard));
+        t.Start();
     }
 
     public SudokuBoard GetBoard()
@@ -36,6 +38,7 @@ public class SudokuBoardGameLogic
 
         return board;
     }
+
 
     private static bool SolveBoard(SudokuBoard board)
     {

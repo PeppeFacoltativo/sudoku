@@ -8,9 +8,20 @@ public class ViewManager : MonoBehaviour
 {
     private const int NUM_OF_LINES = 9;
 
-    [SerializeField] private GameObject boardContainer;
-    [SerializeField] private Text timer;
-    [SerializeField] private Animator quitTextAnimator;
+
+    [Header("Main Menu Canvas")]
+    [SerializeField] private Canvas mainMenuCanvas;
+        [SerializeField] private Text highScore;
+
+    [Header("Board Canvas")]
+    [SerializeField] private Canvas boardCanvas;
+        [SerializeField] private GameObject boardContainer;
+        [SerializeField] private Animator quitTextAnimator;
+        [SerializeField] private Text timer;
+
+    [Header("Game Over Canvas")]
+    [SerializeField] private Canvas gameOverCanvas;
+
 
     private CellController[,] viewCells;
 
@@ -26,6 +37,8 @@ public class ViewManager : MonoBehaviour
                 viewCells[cc.getRow(), cc.getColumn()] = cc;
             }
         }
+
+        highScore.text = PlayerPrefs.GetInt("HighScore").ToString();
     }
 
     /// <summary>
@@ -41,8 +54,10 @@ public class ViewManager : MonoBehaviour
         return new int[2] { row, column };
     }
 
-    public void setUpBoard(SudokuBoard board)
+    public void initializeGame(SudokuBoard board)
     {
+        switchToBoardCanva();
+
         for (int i = 0; i < NUM_OF_LINES; i++)
         {
             for (int j = 0; j < NUM_OF_LINES; j++)
@@ -54,6 +69,39 @@ public class ViewManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void gameOver(int score)
+    {
+        //TODO: Game over animation
+        switchToGameOverCanva();
+    }
+
+    public void quit()
+    {
+        //TODO: Game over animation
+        switchToMainMenuCanva();
+    }
+
+    private void switchToMainMenuCanva()
+    {
+        boardCanvas.enabled = false;
+        mainMenuCanvas.enabled = true;
+        gameOverCanvas.enabled = false;
+    }
+
+    private void switchToBoardCanva()
+    {
+        boardCanvas.enabled = true;
+        mainMenuCanvas.enabled = false;
+        gameOverCanvas.enabled = false;
+    }
+
+    private void switchToGameOverCanva()
+    {
+        boardCanvas.enabled = false;
+        mainMenuCanvas.enabled = false;
+        gameOverCanvas.enabled = true;
     }
 
     public void displayTime(float timeToDisplay)
