@@ -27,9 +27,12 @@ public class ViewManager : MonoBehaviour
 
 
     private CellController[,] viewCells;
+    private Animator animator;
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+
         viewCells = new CellController[NUM_OF_LINES, NUM_OF_LINES];
         for (int i = 0; i < NUM_OF_LINES; i++)
         {
@@ -57,9 +60,9 @@ public class ViewManager : MonoBehaviour
         return new int[2] { row, column };
     }
 
-    public void initializeGame(SudokuBoard board)
+    public void initializeBoard(SudokuBoard board)
     {
-        switchToBoardCanva();
+        animator.Play("fadeToBoard");
 
         for (int i = 0; i < NUM_OF_LINES; i++)
         {
@@ -76,10 +79,11 @@ public class ViewManager : MonoBehaviour
 
     public void gameOver(int score)
     {
-        //TODO: Game over animation
+        boardContainer.GetComponent<Animator>().enabled = true;
+        boardContainer.GetComponent<Animator>().Play("win");
         this.score.text = "Score: " + score.ToString();
         quote.text = pickRandomQuote();
-        switchToGameOverCanva();
+        //switchToGameOverCanva();
     }
 
     public void quit()
@@ -87,27 +91,6 @@ public class ViewManager : MonoBehaviour
         //TODO: Game over animation
         clearBoard();
         switchToMainMenuCanva();
-    }
-
-    private void switchToMainMenuCanva()
-    {
-        boardCanvas.enabled = false;
-        mainMenuCanvas.enabled = true;
-        gameOverCanvas.enabled = false;
-    }
-
-    private void switchToBoardCanva()
-    {
-        boardCanvas.enabled = true;
-        mainMenuCanvas.enabled = false;
-        gameOverCanvas.enabled = false;
-    }
-
-    private void switchToGameOverCanva()
-    {
-        boardCanvas.enabled = false;
-        mainMenuCanvas.enabled = false;
-        gameOverCanvas.enabled = true;
     }
 
     public void displayTime(float timeToDisplay)
@@ -143,6 +126,27 @@ public class ViewManager : MonoBehaviour
     {
         foreach (CellController c in viewCells)
             c.resetCell();
+    }
+
+    private void switchToMainMenuCanva()
+    {
+        boardCanvas.enabled = false;
+        mainMenuCanvas.enabled = true;
+        gameOverCanvas.enabled = false;
+    }
+
+    private void switchToBoardCanva()
+    {
+        boardCanvas.enabled = true;
+        mainMenuCanvas.enabled = false;
+        gameOverCanvas.enabled = false;
+    }
+
+    private void switchToGameOverCanva()
+    {
+        boardCanvas.enabled = false;
+        mainMenuCanvas.enabled = false;
+        gameOverCanvas.enabled = true;
     }
 
 }

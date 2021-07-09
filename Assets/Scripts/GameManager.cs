@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ViewManager view;
     [SerializeField] private List<string> jsonBoardNames; //I preferred to put a list here so it will be easier to choose among a wider range of boards
 
-    private bool gameStarted = false;
+    private bool timerStarted = false;
     private float timeElapsed;
 
     public void startGame(int boardNo)
@@ -18,8 +18,12 @@ public class GameManager : MonoBehaviour
 
         m_GameLogic = new SudokuBoardGameLogic();
         m_GameLogic.StartGame(path);
-        gameStarted = true;
-        view.initializeGame(m_GameLogic.GetBoard());
+        view.initializeBoard(m_GameLogic.GetBoard());
+    }
+
+    public void startTimer()
+    {
+        timerStarted = true;
     }
 
 
@@ -35,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (gameStarted)
+        if (timerStarted)
             refreshTimer();
     }
 
@@ -56,7 +60,7 @@ public class GameManager : MonoBehaviour
     {
         if(m_GameLogic.GetBoard().IsBoardFull())
         {
-            gameStarted = false;
+            timerStarted = false;
 
             int score;
             if (timeElapsed < 100000) //min score is 1
@@ -72,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     public void quit()
     {
-        gameStarted = false;
+        timerStarted = false;
         timeElapsed = 0;
         view.quit();
     }
