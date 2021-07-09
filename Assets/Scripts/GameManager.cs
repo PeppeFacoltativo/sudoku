@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private int maxHints;
+    private int hintsUsed;
+
     SudokuBoardGameLogic m_GameLogic;
 
     [SerializeField] private ViewManager view;
@@ -19,6 +22,7 @@ public class GameManager : MonoBehaviour
         m_GameLogic = new SudokuBoardGameLogic();
         m_GameLogic.StartGame(path);
         view.initializeBoard(m_GameLogic.GetBoard());
+        hintsUsed = 0;
     }
 
     public void startTimer()
@@ -51,9 +55,17 @@ public class GameManager : MonoBehaviour
 
     public void showHint()
     {
-        List<int> hint = m_GameLogic.calculateHint();
-        updateCell(hint[0], hint[1], hint[2]);
-        view.showHint(hint[0], hint[1], hint[2]);
+        if (hintsUsed < maxHints)
+        {
+            hintsUsed++;
+            List<int> hint = m_GameLogic.calculateHint();
+            updateCell(hint[0], hint[1], hint[2]);
+            view.showHint(hint[0], hint[1], hint[2]);
+        }
+        else
+        {
+            //View show error
+        }
     }
 
     public void checkGameOver()
