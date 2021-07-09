@@ -9,6 +9,7 @@ public class ViewManager : MonoBehaviour
 {
     private const int NUM_OF_LINES = 9;
 
+    [SerializeField] private GameObject canvasContainer;
 
     [Header("Main Menu Canvas")]
     [SerializeField] private Canvas mainMenuCanvas;
@@ -88,11 +89,12 @@ public class ViewManager : MonoBehaviour
         boardContainer.GetComponent<Animator>().SetTrigger("win");
         this.score.text = "Score: " + score.ToString();
         quote.text = pickRandomQuote();
-        //switchToGameOverCanva();
+        canvasContainer.GetComponent<Animator>().SetBool("showResults", true);
     }
 
     public void quit()
     {
+        canvasContainer.GetComponent<Animator>().SetBool("showResults", false);
         animator.Play("fadeToMenu");
     }
 
@@ -122,7 +124,9 @@ public class ViewManager : MonoBehaviour
     private string pickRandomQuote()
     {
         string[] quotes = File.ReadAllLines(Application.dataPath + "/Files/Quotes.txt");
-        return quotes[UnityEngine.Random.Range(0, quotes.Length)];
+        string chosenQuote = quotes[UnityEngine.Random.Range(0, quotes.Length)];
+        chosenQuote = chosenQuote.Replace("-", "\r\n-");
+        return chosenQuote;
     }
 
     private void clearBoard()
@@ -142,7 +146,7 @@ public class ViewManager : MonoBehaviour
     {
         boardCanvas.enabled = true;
         mainMenuCanvas.enabled = false;
-        gameOverCanvas.enabled = false;
+        gameOverCanvas.enabled = true;
     }
 
     private void switchToGameOverCanva()
