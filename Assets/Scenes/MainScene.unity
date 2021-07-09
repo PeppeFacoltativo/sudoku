@@ -249,7 +249,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &12598670
@@ -765,7 +765,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &55853596
@@ -1818,7 +1818,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &124521351
@@ -2434,7 +2434,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &177818968
@@ -3366,7 +3366,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &276400771
@@ -3699,7 +3699,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: add719fcf3a10774bb3ce4ad2f939737, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 2
+  m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -5310,7 +5310,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &521357823
@@ -5651,7 +5651,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &552916509
@@ -6716,7 +6716,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &619438914
@@ -7386,7 +7386,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &684992266
@@ -7744,7 +7744,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &691445260
@@ -8909,7 +8909,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &810470849
@@ -9504,7 +9504,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &863266582
@@ -9589,6 +9589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f2636e0bbce497aba6f3b2ae050653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHints: 100
   view: {fileID: 865195989}
   jsonBoardNames:
   - easy_board.json
@@ -10912,7 +10913,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &1009322515
@@ -11249,7 +11250,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &1022861141
@@ -12578,7 +12579,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &1115581195
@@ -13024,7 +13025,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &1157966938
@@ -13203,7 +13204,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &1163258074
@@ -17349,7 +17350,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &1562683835
@@ -18274,7 +18275,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &1648505239
@@ -18769,7 +18770,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &1690906693
@@ -18948,7 +18949,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &1695679587
@@ -19597,7 +19598,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &1789967278
@@ -20322,7 +20323,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &1828864197
@@ -20550,7 +20551,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835466125}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -22054,7 +22055,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &1927352907
@@ -23116,7 +23117,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &2048525191
@@ -24663,7 +24664,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &2131468203
@@ -24842,7 +24843,7 @@ MonoBehaviour:
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
   m_Text: 
   m_CaretBlinkRate: 0.75
-  m_CaretWidth: 1
+  m_CaretWidth: 2
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!114 &2135712795

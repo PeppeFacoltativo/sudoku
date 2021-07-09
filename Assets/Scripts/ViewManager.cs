@@ -44,6 +44,11 @@ public class ViewManager : MonoBehaviour
             }
         }
 
+        refreshHighscore();
+    }
+
+    public void refreshHighscore()
+    {
         highScore.text = PlayerPrefs.GetInt("HighScore").ToString();
     }
 
@@ -80,7 +85,7 @@ public class ViewManager : MonoBehaviour
     public void gameOver(int score)
     {
         boardContainer.GetComponent<Animator>().enabled = true;
-        boardContainer.GetComponent<Animator>().Play("win");
+        boardContainer.GetComponent<Animator>().SetTrigger("win");
         this.score.text = "Score: " + score.ToString();
         quote.text = pickRandomQuote();
         //switchToGameOverCanva();
@@ -88,9 +93,7 @@ public class ViewManager : MonoBehaviour
 
     public void quit()
     {
-        //TODO: Game over animation
-        clearBoard();
-        switchToMainMenuCanva();
+        animator.Play("fadeToMenu");
     }
 
     public void displayTime(float timeToDisplay)
@@ -148,5 +151,4 @@ public class ViewManager : MonoBehaviour
         mainMenuCanvas.enabled = false;
         gameOverCanvas.enabled = true;
     }
-
 }

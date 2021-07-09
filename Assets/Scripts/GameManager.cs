@@ -81,8 +81,11 @@ public class GameManager : MonoBehaviour
                 score = 1;
             view.gameOver(score);
 
-            if (score > PlayerPrefs.GetInt("HighScore"));
+            if (score > PlayerPrefs.GetInt("HighScore"))
+            {
                 PlayerPrefs.SetInt("HighScore", score);
+                view.refreshHighscore();
+            }
         }
     }
 
