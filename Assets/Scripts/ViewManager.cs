@@ -190,4 +190,9 @@ public class ViewManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void goToInstruction()
+    {
+        Application.OpenURL("https://sudoku.com/how-to-play/sudoku-rules-for-complete-beginners/");
+    }
 }
