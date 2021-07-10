@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour
         m_GameLogic = new SudokuBoardGameLogic();
         m_GameLogic.StartGame(path);
         view.initializeBoard(m_GameLogic.GetBoard());
-        view.refreshHintsLeft(maxHints);
         hintsUsed = 0;
+        view.refreshHintsLeft(maxHints);
     }
 
     public void startTimer()

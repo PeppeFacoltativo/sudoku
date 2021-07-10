@@ -98,7 +98,6 @@ public class ViewManager : MonoBehaviour
 
     public void quit()
     {
-        canvasContainer.GetComponent<Animator>().SetBool("showResults", false);
         animator.Play("fadeToMenu");
     }
 
@@ -144,18 +143,12 @@ public class ViewManager : MonoBehaviour
         boardCanvas.enabled = false;
         mainMenuCanvas.enabled = true;
         gameOverCanvas.enabled = false;
+        canvasContainer.GetComponent<Animator>().SetBool("showResults", false);
     }
 
     private void switchToBoardCanva()
     {
         boardCanvas.enabled = true;
-        mainMenuCanvas.enabled = false;
-        gameOverCanvas.enabled = true;
-    }
-
-    private void switchToGameOverCanva()
-    {
-        boardCanvas.enabled = false;
         mainMenuCanvas.enabled = false;
         gameOverCanvas.enabled = true;
     }
