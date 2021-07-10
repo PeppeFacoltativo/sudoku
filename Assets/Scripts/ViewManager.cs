@@ -20,6 +20,10 @@ public class ViewManager : MonoBehaviour
     [SerializeField] private GameObject boardContainer;
     [SerializeField] private Animator quitTextAnimator;
     [SerializeField] private Text timer;
+    [SerializeField] private Text hintsLeft;
+    [SerializeField] private Button quitButton;
+    [SerializeField] private Button hintButton;
+
 
     [Header("Game Over Canvas")]
     [SerializeField] private Canvas gameOverCanvas;
@@ -68,6 +72,7 @@ public class ViewManager : MonoBehaviour
 
     public void initializeBoard(SudokuBoard board)
     {
+        enableUI();
         animator.Play("fadeToBoard");
 
         for (int i = 0; i < NUM_OF_LINES; i++)
@@ -85,8 +90,7 @@ public class ViewManager : MonoBehaviour
 
     public void gameOver(int score)
     {
-        //boardContainer.GetComponent<Animator>().enabled = true;
-        //boardContainer.GetComponent<Animator>().SetTrigger("win");
+        disableUI();
         this.score.text = "Score: " + score.ToString();
         quote.text = pickRandomQuote();
         canvasContainer.GetComponent<Animator>().SetBool("showResults", true);
@@ -154,5 +158,27 @@ public class ViewManager : MonoBehaviour
         boardCanvas.enabled = false;
         mainMenuCanvas.enabled = false;
         gameOverCanvas.enabled = true;
+    }
+
+    private void disableUI()
+    {
+        quitButton.interactable = false;
+        hintButton.interactable = false;
+    }
+
+    private void enableUI()
+    {
+        quitButton.interactable = true;
+        hintButton.interactable = true;
+    }
+
+    public void disableHint()
+    {
+        hintButton.interactable = false;
+    }
+
+    public void refreshHintsLeft(int nHintsLeft)
+    {
+        hintsLeft.text = nHintsLeft.ToString() + " hints left";
     }
 }

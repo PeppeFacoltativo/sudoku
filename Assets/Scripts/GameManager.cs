@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
         m_GameLogic = new SudokuBoardGameLogic();
         m_GameLogic.StartGame(path);
         view.initializeBoard(m_GameLogic.GetBoard());
+        view.refreshHintsLeft(maxHints);
         hintsUsed = 0;
     }
 
@@ -61,10 +62,10 @@ public class GameManager : MonoBehaviour
             List<int> hint = m_GameLogic.calculateHint();
             updateCell(hint[0], hint[1], hint[2]);
             view.showHint(hint[0], hint[1], hint[2]);
-        }
-        else
-        {
-            //View show error
+            view.refreshHintsLeft(maxHints - hintsUsed);
+
+            if (hintsUsed == maxHints)
+                view.disableHint();
         }
     }
 
