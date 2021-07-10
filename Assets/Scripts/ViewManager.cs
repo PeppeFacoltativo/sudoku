@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ViewManager : MonoBehaviour
 {
     private const int NUM_OF_LINES = 9;
+    private const string quotesPath = "Files/Quotes";
 
     [SerializeField] private GameObject canvasContainer;
 
@@ -18,7 +19,6 @@ public class ViewManager : MonoBehaviour
     [Header("Board Canvas")]
     [SerializeField] private Canvas boardCanvas;
     [SerializeField] private GameObject boardContainer;
-    [SerializeField] private Animator quitTextAnimator;
     [SerializeField] private Text timer;
     [SerializeField] private Text hintsLeft;
     [SerializeField] private Button quitButton;
@@ -109,14 +109,24 @@ public class ViewManager : MonoBehaviour
         timer.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    public void quitButtonMouseEnter(Text text)
+    public void quitButtonMouseEnter(GameObject trigger)
     {
-        quitTextAnimator.SetBool("quitHover", true);
+        trigger.GetComponent<Animator>().SetBool("quitHover", true);
     }
 
-    public void quitButtonMouseExit(Text text)
+    public void quitButtonMouseExit(GameObject trigger)
     {
-        quitTextAnimator.SetBool("quitHover", false);
+        trigger.GetComponent<Animator>().SetBool("quitHover", false);
+    }
+
+    public void exitButtonMouseEnter(GameObject trigger)
+    {
+        trigger.GetComponent<Animator>().SetBool("exitHover", true);
+    }
+
+    public void exitButtonMouseExit(GameObject trigger)
+    {
+        trigger.GetComponent<Animator>().SetBool("exitHover", false);
     }
 
     public void showHint(int row, int col, int value)
@@ -126,7 +136,8 @@ public class ViewManager : MonoBehaviour
 
     private string pickRandomQuote()
     {
-        string[] quotes = File.ReadAllLines(Application.dataPath + "/Files/Quotes.txt");
+        TextAsset file = Resources.Load<TextAsset>(quotesPath);
+        string[] quotes = file.text.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
         string chosenQuote = quotes[UnityEngine.Random.Range(0, quotes.Length)];
         chosenQuote = chosenQuote.Replace("-", "\r\n-");
         return chosenQuote;
@@ -173,5 +184,10 @@ public class ViewManager : MonoBehaviour
     public void refreshHintsLeft(int nHintsLeft)
     {
         hintsLeft.text = nHintsLeft.ToString() + " hints left";
+    }
+
+    public void exit()
+    {
+        Application.Quit();
     }
 }

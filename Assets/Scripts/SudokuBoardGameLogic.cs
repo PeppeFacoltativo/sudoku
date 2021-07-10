@@ -32,8 +32,8 @@ public class SudokuBoardGameLogic
     {
         SudokuBoard board = new SudokuBoard();
 
-        if (File.Exists(jsonPath))
-            board = JsonConvert.DeserializeObject<SudokuBoard>(File.ReadAllText(jsonPath));
+        TextAsset file = Resources.Load<TextAsset>(jsonPath);
+        board = JsonConvert.DeserializeObject<SudokuBoard>(file.text);
 
         return board;
     }

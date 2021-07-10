@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     public void startGame(int boardNo)
     {
-        string path =  Application.dataPath + "/Boards/" + jsonBoardNames[boardNo];
+        string path = "Boards/" + jsonBoardNames[boardNo];
 
         m_GameLogic = new SudokuBoardGameLogic();
         m_GameLogic.StartGame(path);
