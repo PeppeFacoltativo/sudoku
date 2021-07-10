@@ -85,8 +85,8 @@ public class ViewManager : MonoBehaviour
 
     public void gameOver(int score)
     {
-        boardContainer.GetComponent<Animator>().enabled = true;
-        boardContainer.GetComponent<Animator>().SetTrigger("win");
+        //boardContainer.GetComponent<Animator>().enabled = true;
+        //boardContainer.GetComponent<Animator>().SetTrigger("win");
         this.score.text = "Score: " + score.ToString();
         quote.text = pickRandomQuote();
         canvasContainer.GetComponent<Animator>().SetBool("showResults", true);
