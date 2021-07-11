@@ -88,10 +88,24 @@ public class GameManager : MonoBehaviour
             view.showHint(hint[0], hint[1], hint[2]);
             view.refreshHintsLeft(maxHints - hintsUsed);
 
+            //When a hint is calculated some inputs by the user might be removed and the Model is already up to date, but the view has to be updated
+            refreshRemovedCells();
+
             //Disable hint button if no hints are left
             if (hintsUsed == maxHints)
                 view.disableHint();
         }
+    }
+
+    /// <summary>
+    /// Refreshes the cells that might have been updated by the function showHint()
+    /// </summary>
+    private void refreshRemovedCells()
+    {
+        List<int[]> emptyCells = m_GameLogic.getEmptyCells();
+
+        foreach (int[] cellCoords in emptyCells)
+            view.clearCell(cellCoords[0], cellCoords[1]);
     }
 
     /// <summary>

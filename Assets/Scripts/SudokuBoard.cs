@@ -179,4 +179,36 @@ public class SudokuBoard
         }
         Debug.Log(sb.ToString());
     }
+
+
+    /// <summary>
+    /// Calculates the coordinates of the empty cells in the board
+    /// </summary>
+    ///<returns>Returns a list of int[2] containing the coordinates (Row, column) of the empty cells</returns>
+    public List<int[]> getEmptyCells()
+    {
+        List<int[]> emptyCellsCoordinates = new List<int[]>();
+
+        for (int i = 0; i < m_Board.GetLength(0); i++)
+        {
+            for (int j = 0; j < m_Board.GetLength(1); j++)
+            {
+                if (m_Board[i, j].Value == 0)
+                {
+                    int[] coords = new int[2];
+                    coords[0] = i; //Row
+                    coords[1] = j; //Column
+                    emptyCellsCoordinates.Add(coords);
+                }
+            }
+        }
+
+        return emptyCellsCoordinates;
+    }
+
+
+    public int getLength()
+    {
+        return m_Board.GetLength(0); //It is 9, but it's better to make a function for it in case we wanted to make a variant of the normal sudoku
+    }
 }

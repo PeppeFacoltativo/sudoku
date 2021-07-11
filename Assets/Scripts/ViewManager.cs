@@ -184,6 +184,11 @@ public class ViewManager : MonoBehaviour
             c.resetCell();
     }
 
+    public void clearCell(int row, int column)
+    {
+        viewCells[row, column].resetCell();
+    }
+
     /// <summary>
     /// hides BoardCanvas and GameOverCanvas and shows Main Menu
     /// </summary>
