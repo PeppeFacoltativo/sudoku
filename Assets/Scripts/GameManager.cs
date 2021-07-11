@@ -10,33 +10,58 @@ public class GameManager : MonoBehaviour
     SudokuBoardGameLogic m_GameLogic;
 
     [SerializeField] private ViewManager view;
-    [SerializeField] private List<string> jsonBoardNames; //I preferred to put a list here so it will be easier to choose among a wider range of boards
+    [SerializeField] private List<string> jsonBoardNames; //keeping a list here will make it easier to choose among a wider range of boards
 
     private bool timerStarted = false;
     private float timeElapsed;
 
+    /// <summary>
+    /// Opens the link for instructions
+    /// </summary>
+    /// <param name="boardNo">The ID number of the board to show</param>
     public void startGame(int boardNo)
     {
         string path = "Boards/" + jsonBoardNames[boardNo];
+        hintsUsed = 0;
 
+        //Initialize the board
         m_GameLogic = new SudokuBoardGameLogic();
         m_GameLogic.StartGame(path);
+
+        //Initialize the view
         view.initializeBoard(m_GameLogic.GetBoard());
-        hintsUsed = 0;
         view.refreshHintsLeft(maxHints);
     }
 
+    /// <summary>
+    /// Starts the game timer
+    /// </summary>
     public void startTimer()
     {
         timerStarted = true;
     }
 
+    /// <summary>
+    /// Updates the timer both in game logic and in view
+    /// </summary>
+    private void refreshTimer()
+    {
+        timeElapsed += Time.deltaTime;
+        view.displayTime(timeElapsed);
+    }
 
+    /// <summary>
+    /// Updates a cell value in the Model
+    /// </summary>
     public void updateCell(int row, int column, int tileValue)
     {
         m_GameLogic.GetBoard().SetSudokuValue(row, column, tileValue);
     }
 
+    /// <summary>
+    /// Checks if a cell value inserted is valid
+    /// </summary>
+    /// <returns>The validity of the insterted number</returns>
     public bool validateCell(int row, int column, int tileValue)
     {
         return m_GameLogic.GetBoard().TestSudokuValueValidity(row, column, tileValue);
@@ -48,33 +73,38 @@ public class GameManager : MonoBehaviour
             refreshTimer();
     }
 
-    private void refreshTimer()
-    {
-        timeElapsed += Time.deltaTime;
-        view.displayTime(timeElapsed);
-    }
-
+    /// <summary>
+    /// Calculates a hint and shows it in view
+    /// </summary>
     public void showHint()
     {
         if (hintsUsed < maxHints)
         {
             hintsUsed++;
             List<int> hint = m_GameLogic.calculateHint();
+
+            //Update view
             updateCell(hint[0], hint[1], hint[2]);
             view.showHint(hint[0], hint[1], hint[2]);
             view.refreshHintsLeft(maxHints - hintsUsed);
 
+            //Disable hint button if no hints are left
             if (hintsUsed == maxHints)
                 view.disableHint();
         }
     }
 
+    /// <summary>
+    /// Check if the board in the Model is full: if it has no empty cells it means that the game is over
+    /// </summary>
     public void checkGameOver()
     {
         if(m_GameLogic.GetBoard().IsBoardFull())
         {
+            //Stop Timer
             timerStarted = false;
 
+            //Calculate Score
             int score;
             if (timeElapsed < 100000) //min score is 1
                 score = 100000 - Mathf.RoundToInt(timeElapsed);
@@ -82,6 +112,7 @@ public class GameManager : MonoBehaviour
                 score = 1;
             view.gameOver(score);
 
+            //Set new Highscore if necessary
             if (score > PlayerPrefs.GetInt("HighScore"))
             {
                 PlayerPrefs.SetInt("HighScore", score);
@@ -90,6 +121,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Go back to Main Menu
+    /// </summary>
     public void quit()
     {
         timerStarted = false;

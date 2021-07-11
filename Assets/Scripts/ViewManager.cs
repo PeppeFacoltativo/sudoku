@@ -9,6 +9,7 @@ public class ViewManager : MonoBehaviour
 {
     private const int NUM_OF_LINES = 9;
     private const string quotesPath = "Files/Quotes";
+    private const string instructionsURL = "https://sudoku.com/how-to-play/sudoku-rules-for-complete-beginners/";
 
     [SerializeField] private GameObject canvasContainer;
 
@@ -38,6 +39,7 @@ public class ViewManager : MonoBehaviour
     {
         animator = GetComponent<Animator>();
 
+        //Add all the CellControllers in the respective position of the 2D Array ViewCells
         viewCells = new CellController[NUM_OF_LINES, NUM_OF_LINES];
         for (int i = 0; i < NUM_OF_LINES; i++)
         {
@@ -49,6 +51,7 @@ public class ViewManager : MonoBehaviour
             }
         }
 
+        //Show latest High Score
         refreshHighscore();
     }
 
@@ -70,9 +73,13 @@ public class ViewManager : MonoBehaviour
         return new int[2] { row, column };
     }
 
+    /// <summary>
+    /// Builds the board with its locked cells in the BoardCanva
+    /// </summary>
+    /// <param name="board">The board to show on screen</param>
     public void initializeBoard(SudokuBoard board)
     {
-        enableUI();
+        enableBoardUI();
         animator.Play("fadeToBoard");
 
         for (int i = 0; i < NUM_OF_LINES; i++)
@@ -88,52 +95,77 @@ public class ViewManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Disables the BoardCanvas UI and shows the animation to GameOverCanva
+    /// </summary>
+    /// <param name="score">The player score</param>
     public void gameOver(int score)
     {
-        disableUI();
+        disableBoardUI();
+
         this.score.text = "Score: " + score.ToString();
         quote.text = pickRandomQuote();
+
+        //GameOver animation
         canvasContainer.GetComponent<Animator>().SetBool("showResults", true);
     }
 
     public void quit()
     {
+        //Stop Chillin' animation
         animator.Play("fadeToMenu");
     }
 
-    public void displayTime(float timeToDisplay)
+    /// <summary>
+    /// Converts the time elapsed to a time format
+    /// </summary>
+    /// <param name="timeElapsed">The time elapsed from the game beginning</param>
+    public void displayTime(float timeElapsed)
     {
-        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
-        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+        float minutes = Mathf.FloorToInt(timeElapsed / 60);
+        float seconds = Mathf.FloorToInt(timeElapsed % 60);
 
         timer.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     public void quitButtonMouseEnter(GameObject trigger)
     {
+        //Shows "Stop chillin" text
         trigger.GetComponent<Animator>().SetBool("quitHover", true);
     }
 
     public void quitButtonMouseExit(GameObject trigger)
     {
+        //Hides "Stop chillin" text
         trigger.GetComponent<Animator>().SetBool("quitHover", false);
     }
 
     public void exitButtonMouseEnter(GameObject trigger)
     {
+        //Shows "See Ya" text
         trigger.GetComponent<Animator>().SetBool("exitHover", true);
     }
 
     public void exitButtonMouseExit(GameObject trigger)
     {
+        //Hides "See Ya" text
         trigger.GetComponent<Animator>().SetBool("exitHover", false);
     }
 
+    /// <summary>
+    /// Shows a (locked) hint cell in the view
+    /// </summary>
+    /// <param name="row">The row of the hint cell</param>
+    /// <param name="col">The column of the hint cell</param>
+    /// <param name="value">The value of the hint cell</param>
     public void showHint(int row, int col, int value)
     {
         viewCells[row, col].setHintedCell(value);
     }
 
+    /// <summary>
+    /// Shows random quote from the file specified in quotesPath under the score in GameOverCanvas
+    /// </summary>
     private string pickRandomQuote()
     {
         TextAsset file = Resources.Load<TextAsset>(quotesPath);
@@ -143,20 +175,31 @@ public class ViewManager : MonoBehaviour
         return chosenQuote;
     }
 
+    /// <summary>
+    /// Resets the board view
+    /// </summary>
     private void clearBoard()
     {
         foreach (CellController c in viewCells)
             c.resetCell();
     }
 
+    /// <summary>
+    /// hides BoardCanvas and GameOverCanvas and shows Main Menu
+    /// </summary>
     private void switchToMainMenuCanva()
     {
         boardCanvas.enabled = false;
         mainMenuCanvas.enabled = true;
         gameOverCanvas.enabled = false;
+
+        //Sets GameOverCanvas back on top
         canvasContainer.GetComponent<Animator>().SetBool("showResults", false);
     }
 
+    /// <summary>
+    /// Hides the Main manu and shows the board
+    /// </summary>
     private void switchToBoardCanva()
     {
         boardCanvas.enabled = true;
@@ -164,23 +207,37 @@ public class ViewManager : MonoBehaviour
         gameOverCanvas.enabled = true;
     }
 
-    private void disableUI()
+    /// <summary>
+    /// Disables the buttons in BoardCanvas (Board Cells too)
+    /// </summary>
+    private void disableBoardUI()
     {
+        foreach (CellController c in viewCells)
+            c.setReadOnly(true);
         quitButton.interactable = false;
         hintButton.interactable = false;
     }
 
-    private void enableUI()
+    /// <summary>
+    /// Enables the buttons in BoardCanvas (doesn't affect Board Cells)
+    /// </summary>
+    private void enableBoardUI()
     {
         quitButton.interactable = true;
         hintButton.interactable = true;
     }
 
+    /// <summary>
+    /// Disables the button Hint
+    /// </summary>
     public void disableHint()
     {
         hintButton.interactable = false;
     }
 
+    /// <summary>
+    /// Updates the amount of hints left
+    /// </summary>
     public void refreshHintsLeft(int nHintsLeft)
     {
         hintsLeft.text = nHintsLeft.ToString() + " hints left";
@@ -191,8 +248,11 @@ public class ViewManager : MonoBehaviour
         Application.Quit();
     }
 
+    /// <summary>
+    /// Opens the link for instructions
+    /// </summary>
     public void goToInstruction()
     {
-        Application.OpenURL("https://sudoku.com/how-to-play/sudoku-rules-for-complete-beginners/");
+        Application.OpenURL(instructionsURL);
     }
 }

@@ -18,6 +18,8 @@ public class SudokuBoardGameLogic
     public void StartGame(string jsonPath)
     {
         m_Board = LoadSudokuBoard(jsonPath);
+
+        //Calculate a solved board at the beginning in a different thread to save time when the user asks for a hint
         solvedBoard = new SudokuBoard(m_Board);
         Thread t = new Thread(() => SolveBoard(solvedBoard));
         t.Start();
@@ -77,9 +79,15 @@ public class SudokuBoardGameLogic
         return result;
     }
 
+    /// <summary>
+    /// Looks for an empty cell in the Board
+    /// </summary>
+    /// <returns>A list of 2 elements containing in order Row and Column</returns>
     private List<int> getRandomEmptyCell()
     {
         List<int> coords = new List<int>();
+
+        //If the board is full we can't ask for hints
         if (m_Board.IsBoardFull())
             throw new Exception("Board already Full");
 
@@ -91,6 +99,6 @@ public class SudokuBoardGameLogic
                 return coords;
             coords.Clear();
         }
-        while (true);
+        while (true); //Infinite loop is not possible because if the board is not full we are gonna get the empty cell in a reasonable time
     }
 }

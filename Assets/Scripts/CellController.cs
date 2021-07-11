@@ -6,6 +6,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(InputField))]
 public class CellController : MonoBehaviour
 {
+    //There are 4 cell types: WHITE (normal, editable), GREY (locked, written in the json), BLUE (Locked, Hint), RED (invalid, its content is deleted automatically as soon as the user clicks confirm)
+
     private int row;
     private int column;
     private int value;
@@ -37,6 +39,9 @@ public class CellController : MonoBehaviour
         return column;
     }
 
+    /// <summary>
+    /// Reset a cell value to 0 and makes it a basic white cell
+    /// </summary>
     public void resetCell()
     {
         value = 0;
@@ -46,6 +51,9 @@ public class CellController : MonoBehaviour
         inputField.readOnly = false;
     }
 
+    /// <summary>
+    /// If the cell is editable it checks if the selected number is valid: if it is not it 
+    /// </summary>
     public void updateCell()
     {
         if (lockedValue)
@@ -61,15 +69,16 @@ public class CellController : MonoBehaviour
         else if (value != int.Parse(newVal))
         {
             value = int.Parse(inputField.text);
+
             //The view updates the model only if the cell is valid
             if (!LocalUtilities.getGameManager().validateCell(row, column, value))
-            {
-                inputField.GetComponent<Image>().color = inputField.GetComponent<Image>().color = new Color(253f / 255f, 170f / 255f, 170f / 255f);
-                valid = false;
-            }
+                setInvalidCell();
         }
     }
 
+    /// <summary>
+    /// If the value inserted by the user is valid the board in the board in the Model is updated, otherwise the cell is cleared
+    /// </summary>
     public void confirmUpdate()
     {
         if (lockedValue)
@@ -86,24 +95,48 @@ public class CellController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The value of the cell is not editable Anymore
+    /// </summary>
+    /// <param name="tileValue">The locked Value</param>
     private void lockValue(int tileValue)
     {
         value = tileValue;
         lockedValue = true;
         inputField.text = tileValue.ToString();
-        inputField.readOnly = true;
+        setReadOnly(true);
     }
 
+    /// <summary>
+    /// Sets the cell to GREY and locks it
+    /// </summary>
     public void setFixedValue(int tileValue)
     {
         lockValue(tileValue);
-        inputField.GetComponent<Image>().color = new Color(220f / 255f, 220f / 255f, 220f / 255f);
+        inputField.GetComponent<Image>().color = new Color(220f / 255f, 220f / 255f, 220f / 255f); //PASTEL GREY
     }
 
+    /// <summary>
+    /// Sets the cell to BLUE and locks it
+    /// </summary>
     public void setHintedCell(int tileValue)
     {
         lockValue(tileValue);
-        inputField.GetComponent<Image>().color = new Color(174f / 255f, 198f / 255f, 207f / 255f);
+        inputField.GetComponent<Image>().color = new Color(174f / 255f, 198f / 255f, 207f / 255f); //PASTEL BLUE
         LocalUtilities.getGameManager().checkGameOver();
+    }
+
+    /// <summary>
+    /// Sets the cell to RED
+    /// </summary>
+    private void setInvalidCell()
+    {
+        inputField.GetComponent<Image>().color = inputField.GetComponent<Image>().color = new Color(253f / 255f, 170f / 255f, 170f / 255f); //PASTEL RED
+        valid = false;
+    }
+
+    public void setReadOnly(bool readOnly)
+    {
+        inputField.readOnly = readOnly;
     }
 }
