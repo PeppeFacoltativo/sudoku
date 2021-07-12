@@ -69,7 +69,7 @@ public class SudokuBoardGameLogic
     }
 
     /// <summary>
-    /// Return row, column and value of the hinted cell
+    /// Return row, column and value of the hinted cell. It might clear some cells in the Model, so it is necessary refresh the view afterwards
     /// </summary>
     /// <returns>A list of 3 elements containing in order Row, Column and Value</returns>
     public List<int> calculateHint()
